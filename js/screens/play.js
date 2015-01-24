@@ -10,8 +10,10 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.levelDirector.loadLevel("level01");
 		// to make our player show
 		var player = me.pool.pull("player", 0, 420, {});
-		me.game.world.addChild(player, 5);
 		// this brings him to the world
+		me.game.world.addChild(player, 5);
+		// binds the key for movement
+		// moves player to the right
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 
 		// add our HUD to the game world
