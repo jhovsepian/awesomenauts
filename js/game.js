@@ -39,9 +39,10 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
+		// to register our player
 			me.pool.register("player", game.PlayerEntity, true);
 
-
+			// 2 screens
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 

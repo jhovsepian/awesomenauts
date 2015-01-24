@@ -1,7 +1,9 @@
 game.PlayerEntity = me.Entity.extend ({
+	// constructer function to set us up
 	init: function(x, y, settings) {
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player",
+			// what amount of space to preserve
 			width: 64,
 			height: 64,
 			spritewidth: "64",
