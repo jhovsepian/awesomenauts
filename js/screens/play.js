@@ -5,7 +5,8 @@ game.PlayScreen = me.ScreenObject.extend({
 	onResetEvent: function() {
 		// reset the score
 		game.data.score = 0;
-
+		// what to look at besides maps
+		//to load level 1
 		me.levelDirector.loadLevel("level01");
 
 		var player = me.pool.pull("player", 0, 420, {});
