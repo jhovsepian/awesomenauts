@@ -13,7 +13,7 @@ game.PlayerEntity = me.Entity.extend ({
 			}
 		}]);
 		// chooses velocity for our player
-		this.body.setVelocity(5, 0);
+		this.body.setVelocity(5, 20);
 
 	},
 
