@@ -14,10 +14,11 @@ game.PlayerEntity = me.Entity.extend ({
 		}]);
 		// chooses velocity for our player
 		this.body.setVelocity(5, 20);
-
+		// this is the standing animation
 		this.renderable.addAnimation("idle", [78]);
+		//this is to add the walking animation.
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
-
+		// to set the walking animation. 
 		this.renderable.setCurrentAnimation("idle");
 	},
 
@@ -28,12 +29,13 @@ game.PlayerEntity = me.Entity.extend ({
 			//setVelocity() and multiplying it by me.timer.tick
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			// to flip the character the right way
 			this.flipX(true);
 		}else{
 			// if youre not pressing the right key then the player wont move
 			this.body.vel.x = 0;
 		}
-
+		// only to go to walk animation when walking
 		if(this.body.vel.x !== 0) { 
 		if(!this.renderable.isCurrentAnimation("walk")) {
 			this.renderable.setCurrentAnimation("walk");
@@ -45,7 +47,7 @@ game.PlayerEntity = me.Entity.extend ({
 
 		// delta is change in time
 		this.body.update(delta);
-		
+		// this is to update our animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
