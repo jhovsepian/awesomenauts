@@ -41,7 +41,8 @@ var game = {
 	"loaded" : function () {
 		// to register our player
 			me.pool.register("player", game.PlayerEntity, true);
-
+			me.pool.register("tower", game.PlayerBaseEntity);
+			me.pool.register("tower", game.EnemyBaseEntity);
 			// 2 screens
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
