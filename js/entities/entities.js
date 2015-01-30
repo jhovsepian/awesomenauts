@@ -14,6 +14,7 @@ game.PlayerEntity = me.Entity.extend ({
 		}]);
 		// chooses velocity for our player
 		this.body.setVelocity(5, 20);
+		// no matter where the player goes it will will follow him
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		// this is the standing animation
 		this.renderable.addAnimation("idle", [78]);
@@ -77,8 +78,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 
 		// type that i can see what im running into things
 		this.type = "PlayerBaseEntity";
-
+		// 0 is the not buring animation
 		this.renderable.addAnimation("idle", [0]);
+		// breaks our animations
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
 	},
@@ -121,8 +123,9 @@ game.EnemyBaseEntity = me.Entity.extend({
 
 
 		this.type = "EnemyBaseEntity";
-
+		// not a buring tower
 		this.renderable.addAnimation("idle", [0]);
+		// buring animation will break
 		this.renderable.addAnimation("broken", [1]);
 		this.renderable.setCurrentAnimation("idle");
 
