@@ -34,15 +34,17 @@ game.PlayerEntity = me.Entity.extend ({
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 			// to flip the character the right way
 			this.flipX(true);
-
+			// to see if left key is pressed
 		}else if(me.input.isKeyPressed("left")){
+			// same things goes for the comments for right
 			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			// to not flip the character
 			this.flipX(false);
 		}else{
 			// if youre not pressing the right key then the player wont move
 			this.body.vel.x = 0;
 		}
-
+		// makes the player jump and fall back down
 		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
 			this.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
