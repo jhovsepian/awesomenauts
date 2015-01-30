@@ -66,12 +66,16 @@ game.PlayerBaseEntity = me.Entity.extend({
 				return (new me.Rect(0, 0, 100, 100)).toPolygon();
 			}
 		}]);
+		// the tower has not been destroyed
 		this.broken = false;
+		// 10 health
 		this.health = 10;
+		//this updates the game
 		this.alwaysUpdate = true;
+		// if someone runs into the tower it will collide with it
 		this.body.onCollision = this.onCollision.bind(this);
 
-
+		// type that i can see what im running into things
 		this.type = "PlayerBaseEntity";
 
 		this.renderable.addAnimation("idle", [0]);
@@ -80,7 +84,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 	},
 
 	update:function(delta) {
+		// if my health is less than or equal to 0,
 		if(this.health<=0) {
+			//then we are dead
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken")
 		}
