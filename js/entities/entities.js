@@ -14,6 +14,8 @@ game.PlayerEntity = me.Entity.extend ({
 		}]);
 		// chooses velocity for our player
 		this.body.setVelocity(5, 20);
+		// keeps track of which direction your character is going
+		this.facing = "right";
 		// no matter where the player goes it will will follow him
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		// this is the standing animation
@@ -32,10 +34,12 @@ game.PlayerEntity = me.Entity.extend ({
 			//setVelocity() and multiplying it by me.timer.tick
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			this.facing = "right";
 			// to flip the character the right way
 			this.flipX(true);
 			// to see if left key is pressed
 		}else if(me.input.isKeyPressed("left")){
+			this.facing = "left";
 			// same things goes for the comments for right
 			this.body.vel.x -=this.body.accel.x * me.timer.tick;
 			// to not flip the character
@@ -87,12 +91,32 @@ game.PlayerEntity = me.Entity.extend ({
 			}
 		}
 
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		// delta is change in time
 		this.body.update(delta);
 		// this is to update our animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	collideHandler: function(response) {
+		if(response.b.type==='EnemyBaseEntity') {
+			var ydif = this.pos.y - response.b.pos.y;
+			var xdif = this.pos.x - response.b.pos.x;
+
+			console.log("xdif " + xdif + " ydif " + ydif);
+
+			if(xdif>-35 && this.facing==='right' && (xdif<0)) {
+				this.body.vel.x = 0;
+				this.pos.x = this.pos.x -1;
+			}else if(xdif<70 && this.facing==='left'&& (xdif>0)) {
+				this.body.vel.x = 0;
+				this.pos.x = this.pos.x +1;
+
+			}
+		}
+
 	}
 });
 
