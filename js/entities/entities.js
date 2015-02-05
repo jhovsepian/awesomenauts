@@ -34,6 +34,7 @@ game.PlayerEntity = me.Entity.extend ({
 			//setVelocity() and multiplying it by me.timer.tick
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			//to face right
 			this.facing = "right";
 			// to flip the character the right way
 			this.flipX(true);
@@ -90,7 +91,7 @@ game.PlayerEntity = me.Entity.extend ({
 				this.renderable.setAnimationFrame();
 			}
 		}
-
+		// to collide with the base
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 
 		// delta is change in time
@@ -99,17 +100,26 @@ game.PlayerEntity = me.Entity.extend ({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
-
+	// info about the handler
 	collideHandler: function(response) {
+		// to see whatever were colliding with
 		if(response.b.type==='EnemyBaseEntity') {
+			//to see what we are dealing with
+			// the difference between the player and the y position
 			var ydif = this.pos.y - response.b.pos.y;
+			// same for x as above
+			// to keep track of both objects
 			var xdif = this.pos.x - response.b.pos.x;
 
+			// to know the x difference and y differnce, on where to go
 			console.log("xdif " + xdif + " ydif " + ydif);
-
+			// if i gone far from 35 it will stop the character from moving
 			if(xdif>-35 && this.facing==='right' && (xdif<0)) {
+				// stop my player from moving
 				this.body.vel.x = 0;
+				// move the player backwards
 				this.pos.x = this.pos.x -1;
+				// keeping me from walking to the left and the right
 			}else if(xdif<70 && this.facing==='left'&& (xdif>0)) {
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x +1;
