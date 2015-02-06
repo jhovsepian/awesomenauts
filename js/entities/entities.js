@@ -113,8 +113,14 @@ game.PlayerEntity = me.Entity.extend ({
 
 			// to know the x difference and y differnce, on where to go
 			console.log("xdif " + xdif + " ydif " + ydif);
+			
+			if(ydif<-40 && xdif< 70 && xdif>-35) {
+				this.body.falling = false;
+				this.body.vel.y = -1;
+			}
+
 			// if i gone far from 35 it will stop the character from moving
-			if(xdif>-35 && this.facing==='right' && (xdif<0)) {
+			else if(xdif>-35 && this.facing==='right' && (xdif<0)) {
 				// stop my player from moving
 				this.body.vel.x = 0;
 				// move the player backwards
