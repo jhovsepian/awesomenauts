@@ -246,11 +246,13 @@ game.EnemyCreep = me.Entity.extend ({
 				return (new.me.Rect(0, 0, 32, 64)).toPolygon();
 			}
 		}]);
+		// 10 health
 		this.health = 10;
+		// to always move on screen
 		this.alwaysUpdate = true;
-
+		// velocity to start
 		this.setVelocity(3, 20);
-
+		// enemey creep 
 		this.type = "EnemyCreep";
 
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);
