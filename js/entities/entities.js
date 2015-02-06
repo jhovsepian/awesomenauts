@@ -58,7 +58,7 @@ game.PlayerEntity = me.Entity.extend ({
 			this.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		}
-
+		// hold down attack button
 		if(me.input.isKeyPressed("attack")){
 			if(!this.renderable.isCurrentAnimation("attack")) {
 				console.log(!this.renderable.isCurrentAnimation("attack"));
@@ -72,11 +72,12 @@ game.PlayerEntity = me.Entity.extend ({
 			}
 		}
 
-		// only to go to walk animation when walking
+		// no attack animation going on
 		else if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) { 
 		if(!this.renderable.isCurrentAnimation("walk")) {
 			this.renderable.setCurrentAnimation("walk");
 		}
+		// if not attacking nothing will work
 	}else if(!this.renderable.isCurrentAnimation("attack")) {
 		this.renderable.setCurrentAnimation("idle");
 	}
@@ -121,8 +122,10 @@ game.PlayerEntity = me.Entity.extend ({
 				this.pos.x = this.pos.x +1;
 
 			}
+			// if attacking
 			// see if its 400 mili seconds since last hit
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000) {
+				// then we lose health
 				console.log("Tower Hit");
 				this.lastHit = this.now;
 				response.b.loseHealth();
@@ -224,8 +227,8 @@ game.EnemyBaseEntity = me.Entity.extend({
 	onCollision: function() {
 
 	},
-
 	loseHealth: function() {
+		// to make the health go down one
 		this.health--;
 	}
 
