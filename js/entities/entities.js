@@ -110,10 +110,9 @@ game.PlayerEntity = me.Entity.extend ({
 			// same for x as above
 			// to keep track of both objects
 			var xdif = this.pos.x - response.b.pos.x;
-
-			// to know the x difference and y differnce, on where to go
-			console.log("xdif " + xdif + " ydif " + ydif);
-			
+			// to collide to the top of the base
+			// y var to come first
+			// not to walk on the base first
 			if(ydif<-40 && xdif< 70 && xdif>-35) {
 				this.body.falling = false;
 				this.body.vel.y = -1;
