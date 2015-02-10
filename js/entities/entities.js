@@ -243,7 +243,7 @@ game.EnemyCreep = me.Entity.extend ({
 			spritewidth: "32",
 			spriteheight: "64",
 			getShape: function() {
-				return (new.me.Rect(0, 0, 32, 64)).toPolygon();
+				return (new me.Rect(0, 0, 32, 64)).toPolygon();
 			}
 		}]);
 		// 10 health
@@ -258,12 +258,25 @@ game.EnemyCreep = me.Entity.extend ({
 		this.renderable.addAnimation("walk", [3, 4, 5], 80);
 		this.renderable.setCurrentAnimation("walk");
 	},
-	update: function() {
+
+	update: function(delta) {
+
+
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+
+
+		this.body.update(delta);
+
+
+		// this is to update our animation
+		this._super(me.Entity, "update", [delta]);
+
+		return true;
 
 	}
 });
 
-game.gameManager = Object.extend({
+game.GameManager = Object.extend({
 	init: function(x, y, settings) {
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
