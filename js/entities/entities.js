@@ -97,6 +97,7 @@ game.PlayerEntity = me.Entity.extend ({
 
 	loseHealth: function(damage) {
 		this.health = this.health - damage;
+		console.log(this.health);
 	},
 
 	// info about the handler
@@ -316,8 +317,7 @@ game.EnemyCreep = me.Entity.extend ({
 			//this.lastAttacking=this.now;
 			
 			
-			if(xdif>0) {
-				console.log(xdif);	
+			if(xdif>0) {	
 				//keeps moving the creep to the right to maintain its position		
 				this.pos.x = this.pos.x + 1;
 				this.body.vel.x = 0;
