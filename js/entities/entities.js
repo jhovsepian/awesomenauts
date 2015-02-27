@@ -1,6 +1,22 @@
 game.PlayerEntity = me.Entity.extend ({
 	// constructer function to set us up
 	init: function(x, y, settings) {
+		this.setSuper();
+		this.setPlayerTimers();
+		this.setAttributes();
+		this.type = "PlayerEntity";
+		this.setFlags();
+
+		// no matter where the player goes it will will follow him
+		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		
+		this.addAnimation();
+		
+		// to set the walking animation. 
+		this.renderable.setCurrentAnimation("idle");
+	},
+
+	setSuper: function() {
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player",
 			// what amount of space to preserve
@@ -12,26 +28,33 @@ game.PlayerEntity = me.Entity.extend ({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
-		this.type = "PlayerEntity";
+	},
+
+	setPlayerTimers: function() {
+		this.now = new Date().getTime();
+		this.lastHit = this.now;
+		this.lastAttack = new Date().getTime();
+	},
+
+	setAttributes: function() {
 		// chooses velocity for our player
 		this.health = game.data.playerHealth;
 		this.body.setVelocity(game.data.playerMoveSpeed, 20);
+		this.attack = game.data.playerAttack;	
+	},
+
+	setFlags: function() {
 		// keeps track of which direction your character is going
 		this.facing = "right";
-		this.now = new Date().getTime();
-		this.lastHit = this.now;
-		this.dead = false;
-		this.attack = game.data.playerAttack;  
-		this.lastAttack = new Date().getTime();
-		// no matter where the player goes it will will follow him
-		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+		this.dead = false;  
+	},
+
+	addAnimation: function() {
 		// this is the standing animation
 		this.renderable.addAnimation("idle", [78]);
 		//this is to add the walking animation.
 		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
 		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
-		// to set the walking animation. 
-		this.renderable.setCurrentAnimation("idle");
 	},
 
 	update: function(delta) {
