@@ -59,39 +59,12 @@ game.PlayerEntity = me.Entity.extend ({
 
 	update: function(delta) {
 		this.now = new Date().getTime();
-		// 
-		if(this.health <= 0) {
-			this.dead = true;
+		
+		this.dead = checkIfDead();
 
+		this.checkKeyPressesAndMove();
 
-		}
-
-		// to see if right key is pressed
-		if(me.input.isKeyPressed("right")){
-			// adds to the postion of my x by the velocity defined above in
-			//setVelocity() and multiplying it by me.timer.tick
-			//me.timer.tick makes the movement look smooth
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
-			//to face right
-			this.facing = "right";
-			// to flip the character the right way
-			this.flipX(true);
-			// to see if left key is pressed
-		}else if(me.input.isKeyPressed("left")){
-			this.facing = "left";
-			// same things goes for the comments for right
-			this.body.vel.x -=this.body.accel.x * me.timer.tick;
-			// to not flip the character
-			this.flipX(false);
-		}else{
-			// if youre not pressing the right key then the player wont move
-			this.body.vel.x = 0;
-		}
-		// makes the player jump and fall back down
-		if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
-			this.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
-		}
+		
 		// hold down attack button
 		if(me.input.isKeyPressed("attack")){
 			if(!this.renderable.isCurrentAnimation("attack")) {
@@ -125,6 +98,54 @@ game.PlayerEntity = me.Entity.extend ({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	},
+
+	checkIfDead: function() {
+		if(this.health <= 0) {
+			return true;
+		}
+		return false;
+	},
+
+	checkKeyPressesAndMove: function() {
+		// to see if right key is pressed
+		if(me.input.isKeyPressed("right")){
+			this.moveRight();
+			// to see if left key is pressed
+		}else if(me.input.isKeyPressed("left")){
+		this.moveLeft();
+		}else{
+			// if youre not pressing the right key then the player wont move
+			this.body.vel.x = 0;
+		}
+		// makes the player jump and fall back down
+		if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling) {
+			this.jump();
+		}
+	},
+
+	moveRight: function() {
+			// adds to the postion of my x by the velocity defined above in
+			//setVelocity() and multiplying it by me.timer.tick
+			//me.timer.tick makes the movement look smooth
+			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			//to face right
+			this.facing = "right";
+			// to flip the character the right way
+			this.flipX(true);
+	},
+
+	moveLeft: function() {
+			this.facing = "left";
+			// same things goes for the comments for right
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			// to not flip the character
+			this.flipX(false);
+	},
+
+	jump: function() {
+		this.jumping = true;
+	this.body.vel.y -= this.body.accel.y * me.timer.tick;
+	}
 
 	loseHealth: function(damage) {
 		this.health = this.health - damage;
