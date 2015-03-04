@@ -1,7 +1,7 @@
 game.PlayerEntity = me.Entity.extend ({
 	// constructer function to set us up
 	init: function(x, y, settings) {
-		this.setSuper();
+		this.setSuper(x, y);
 		this.setPlayerTimers();
 		this.setAttributes();
 		this.type = "PlayerEntity";
@@ -16,7 +16,7 @@ game.PlayerEntity = me.Entity.extend ({
 		this.renderable.setCurrentAnimation("idle");
 	},
 
-	setSuper: function() {
+	setSuper: function(x, y) {
 		this._super(me.Entity, 'init', [x, y, {
 			image: "player",
 			// what amount of space to preserve
@@ -60,7 +60,7 @@ game.PlayerEntity = me.Entity.extend ({
 
 	update: function(delta) {
 		this.now = new Date().getTime();
-		this.dead = checkIfDead();
+		this.dead = this.checkIfDead();
 		this.checkKeyPressesAndMove();
 		this.setAnimation();
 		// to collide with the base
@@ -153,30 +153,11 @@ game.PlayerEntity = me.Entity.extend ({
 
 	// info about the handler
 	collideHandler: function(response) {
+		console.log(response.b.type);
 		// to see whatever were colliding with
 		if(response.b.type==='EnemyBaseEntity') {
-		
+			console.log("EnemyBase");
 			this.collideWithEnemyBase(response);
-
-			// if i gone far from 35 it will stop the character from moving
-			else if(xdif>-35 && this.facing==='right' && (xdif<0)) {
-				// stop my player from moving
-				this.body.vel.x = 0;
-				// move the player backwards
-				//this.pos.x = this.pos.x -1;
-				// keeping me from walking to the left and the right
-			}else if(xdif<70 && this.facing==='left'&& (xdif>0)) {
-				this.body.vel.x = 0;
-				//this.pos.x = this.pos.x +1;
-
-			}
-			// if attacking
-			// see if its 400 mili seconds since last hit
-			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer) {
-				// then we lose health
-				this.lastHit = this.now;
-				response.b.loseHealth(game.data.playerAttack);
-			}
 
 		}else if(response.b.type==='EnemyCreep') {
 			this.collideWithEnemyCreep(response);
@@ -200,7 +181,7 @@ game.PlayerEntity = me.Entity.extend ({
 			}
 	},
 	collideWithEnemyCreep: function(response) {
-		var xif = this.pos.x - response.b.pos.x;
+		var xdif = this.pos.x - response.b.pos.x;
 			var ydif = this.posy - response.b.pos.y;
 
 			this.stopMovement(xdif);
@@ -233,16 +214,9 @@ game.PlayerEntity = me.Entity.extend ({
 				return true;
 			}
 			return false;
+		},
 
-					//if the creeps health is less than our attack, execute code in if statement
-				if(response.b.health <= game.data.playerAttack) {
-					//adds one gold for a creep kill
-					game.data.gold += 1;
-					// keeps track of gold
-					console.log("Current gold: " + game.data.gold);
-				}
-
-				response.b.loseHealth(game.data.playerAttack);
+				
 				hitCreep: function(response) {
 									//if the creeps health is less than our attack, execute code in if statement
 				if(response.b.health <= game.data.playerAttack) {
@@ -252,7 +226,7 @@ game.PlayerEntity = me.Entity.extend ({
 					console.log("Current gold: " + game.data.gold);
 				}
 
-				response.b.loseHealth(game.data.playerAttack
+				response.b.loseHealth(game.data.playerAttack);
 				}
 });
 

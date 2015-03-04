@@ -12,7 +12,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		this.resetPlayer(0, 420);	
 
 		var gamemanager = me.pool.pull("GameManager", 0, 0, {});
-		me.game.world.addChild(gamemanager, 0);
+		 me.game.world.addChild(gamemanager, 0);
 
 		// binds the key for movement
 		// moves player to the right
@@ -39,8 +39,11 @@ game.PlayScreen = me.ScreenObject.extend({
 	},
 
 	resetPlayer: function(x, y) {
+		console.log("reset " + game.data.player.health);
 			// to make our player show
 		game.data.player = me.pool.pull("player", x, y, {});
+
+		console.log("pulled " + game.data.player.health);
 		// this brings him to the world
 		me.game.world.addChild(game.data.player, 5);
 	}

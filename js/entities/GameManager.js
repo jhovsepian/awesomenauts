@@ -8,10 +8,9 @@ game.GameManager = Object.extend({
 
 	update: function() {
 		this.now = new Date().getTime();
-
 		if(game.data.player.dead) {
 			me.game.world.removeChild(game.data.player);
-			me.state.current().resetPlayer(10, 0);
+			me.state.current().resetPlayer(10, 16);
 		}
 		// creeps will come every 20 seconds
 		if(Math.round(this.now/1000) % 20 ===0 && (this.now - this.lastCreep >= 1000)) {
