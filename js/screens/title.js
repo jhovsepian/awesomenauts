@@ -16,7 +16,7 @@ game.TitleScreen = me.ScreenObject.extend({
 			},
 			// to try and draw on the screen
 			draw: function(renderer) {
-				this.font.draw(renderer.getContext(), "Awesomenauts are Awesome!", 245, 130);
+				this.font.draw(renderer.getContext(), "Awesomenauts is Awesome!", 245, 130);
 				this.font.draw(renderer.getContext(), "Press ENTER to Play!", 250, 530);
 			}
 		})));

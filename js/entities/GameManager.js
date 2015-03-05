@@ -50,18 +50,22 @@ game.HeroDeathManager = Object.extend({
 game.ExperienceManager = Object.extend({
 	init: function(x, y, settings) {
 		this.alwaysUpdate = true;
+		this.gameOver = false;
 	},
 
 	update: function() {
 		// wont work till flags are set
-		if(game.data.win === true) {
+		if(game.data.win === true && !this.gameOver) {
 			//adds sceen by 10 if i win
 			game.data.exp += 10;
+			this.gameOver = true;
 			// wont be called until flags are set
-		}else if(game.data.win === false) {
+		}else if(game.data.win === false && !this.gameOver) {
 			// if i lose gains only 1 
 			game.data.exp += 1;
+			this.gameOver = true;
 		}
+		console.log(game.data.exp);
 
 		return true;
 	}
