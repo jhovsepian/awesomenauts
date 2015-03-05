@@ -42,5 +42,27 @@ game.HeroDeathManager = Object.extend({
 			me.game.world.removeChild(game.data.player);
 			me.state.current().resetPlayer(10, 16);
 		}
+
+		return true;
+	}
+});
+
+game.ExperienceManager = Object.extend({
+	init: function(x, y, settings) {
+		this.alwaysUpdate = true;
+	},
+
+	update: function() {
+		// wont work till flags are set
+		if(game.data.win === true) {
+			//adds sceen by 10 if i win
+			game.data.exp += 10;
+			// wont be called until flags are set
+		}else if(game.data.win === false) {
+			// if i lose gains only 1 
+			game.data.exp += 1;
+		}
+
+		return true;
 	}
 });
