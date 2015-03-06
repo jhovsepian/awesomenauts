@@ -4,30 +4,35 @@ game.TitleScreen = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {	
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('title-screen')), -10); // TODO
-		// to make us go to our title screen
-		me.input.bindKey(me.input.KEY.ENTER, "start");
 		// this is for the text and font of the title screen to show
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function() {
 				// call to the super class
-				this._super(me.Renderable, 'init', [510, 30, me.game.viewport.width, me.game.viewport.height]);
+				this._super(me.Renderable, 'init', [270, 240, 300, 50]);
 				// my font
 				this.font = new me.Font("Chiller", 70, "white");
+				me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
 			},
 			// to try and draw on the screen
 			draw: function(renderer) {
-				this.font.draw(renderer.getContext(), "Awesomenauts is Awesome!", 245, 130);
-				this.font.draw(renderer.getContext(), "Press ENTER to Play!", 250, 530);
+				this.font.draw(renderer.getContext(), "Awesomenauts is Awesome!", this.pos.x, this.pos.y);
+			},
+
+			update: function(dt) {
+				return true;
+			},
+
+			newGame: function() {
+				me.input.releasePointerEvent('pointerdown', this);
+				me.save.remove('exp');
+				me.save.remove('exp1');
+				me.save.remove('exp2');
+				me.save.remove('exp3');
+				me.save.remove('exp4');
+				me.state.change(me.state.PLAY);
 			}
 		})));
 
-		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
-			// if we press start, 
-			if(action === "start") {
-				// then we will play
-				me.state.change(me.state.PLAY);
-			}
-		});
 
 	},
 	
@@ -36,8 +41,6 @@ game.TitleScreen = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
-		// you press enter to start the game
-		me.input.unbindKey(me.input.KEY.ENTER); // TODO
-		me.event.unsubscribe(this.handler);
+	
 	}
 });
