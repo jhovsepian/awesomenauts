@@ -56,17 +56,25 @@ game.ExperienceManager = Object.extend({
 	update: function() {
 		// wont work till flags are set
 		if(game.data.win === true && !this.gameOver) {
-			//adds sceen by 10 if i win
-			game.data.exp += 10;
-			this.gameOver = true;
+			this.gameOver(true);
 			// wont be called until flags are set
 		}else if(game.data.win === false && !this.gameOver) {
 			// if i lose gains only 1 
-			game.data.exp += 1;
-			this.gameOver = true;
+			this.gameOver(false);
 		}
-		console.log(game.data.exp);
 
 		return true;
+	},
+
+	gameOver: function(win) {
+		if(win) {
+			//adds sceen by 10 if i win
+			game.data.exp += 10;
+		}else {
+			game.data.exp += 1;
+		}
+
+		this.gameOver = true;
+		me.save.exp = game.data.exp;
 	}
 });
