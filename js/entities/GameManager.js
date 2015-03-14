@@ -113,11 +113,13 @@ game.SpendGold = Object.extend({
 		game.data.buyscreen.updateWhenPaused = true;
 		game.data.buyscreen.setOpacity(0.8);
 		me.game.world.addChild(game.data.buyscreen, 34);
+		game.data.player.body.setVelocity(0, 0);
 	},
 
 	stopBuying: function() {
 		this.buying = false;
 		me.state.resume(me.state.PLAY);
+		game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
 		me.game.world.removeChild(game.data.buyscreen);
 	}
 
