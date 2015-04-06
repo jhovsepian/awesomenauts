@@ -28,11 +28,11 @@
 			echo json_encode($array);
 		}
 		else {
-			echo "<p>Invalid username and password</p>";
+			echo "Invalid username and password";
 		}
 	}
 		else {
-			echo "<p>Invalid username and password</p>";
+			echo "Invalid username and password";
 		}
 	
 ?>

@@ -10,6 +10,7 @@
 	$hashedpassword = crypt($password, $salt);
 // this querry is inserting to our users and it will set values
 	$query = $_SESSION["connection"]->query("INSERT INTO users SET "
+		. "email = '', "
 		. "username = '$username',"
 		. "password = '$hashedpassword',"
 		. "salt = '$salt', "
