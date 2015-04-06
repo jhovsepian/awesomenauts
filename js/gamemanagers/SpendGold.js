@@ -82,7 +82,7 @@ game.SpendGold = Object.extend({
 		me.input.unbindKey(me.input.KEY.F5, "F5", true);
 		me.input.unbindKey(me.input.KEY.F6, "F6", true);
 		me.game.world.removeChild(game.data.buytext);
-	}
+	},
 
 	checkBuyKeys: function() {
 		if(me.input.isKeyPressed("F1")) {
