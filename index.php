@@ -61,6 +61,7 @@
 		<script type="text/javascript" src="js/entities/HUD.js"></script>
 		<script type="text/javascript" src="js/screens/title.js"></script>
 		<script type="text/javascript" src="js/screens/play.js"></script>
+		<script type="text/javascript" src="js/screens/SpearThrow.js"></script>
 		<script type="text/javascript" src="js/screens/spendExp.js"></script>
 		<script type="text/javascript" src="js/screens/loadProfile.js"></script>
 		<script type="text/javascript" src="js/screens/newProfile.js"></script>
