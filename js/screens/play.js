@@ -62,6 +62,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		console.log("pulled " + game.data.player.health);
 		// this brings him to the world
 		me.game.world.addChild(game.data.player, 5);
+		game.data.miniPlayer = me.pool.pull("miniplayer", 10, 10, {});
+		me.game.world.addChild(game.data.miniPlayer, 31);
 	}
 
 
