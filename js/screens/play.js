@@ -45,7 +45,6 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.addChild(this.HUD);
 	}, 
 
-
 	/**
 	 *  action to perform when leaving this screen (state change)
 	 */
