@@ -20,7 +20,7 @@ game.NewProfile = me.ScreenObject.extend({
 				// call to the super class
 				this._super(me.Renderable, 'init', [10, 10, 300, 50]);
 				// my font
-				this.font = new me.Font("Chiller", 50, "white");
+				this.font = new me.Font("Chiller", 37, "black");
 			
 			},
 			// to try and draw on the screen

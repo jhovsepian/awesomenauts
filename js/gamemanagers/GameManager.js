@@ -31,7 +31,7 @@ game.ExperienceManager = Object.extend({
 		me.save.exp = game.data.exp;
 
 
-			$ajax({
+			$.ajax({
 				type: "POST",
 				url: "php/controller/save-user.php",
 				data:  {

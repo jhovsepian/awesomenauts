@@ -7,7 +7,7 @@ game.SpearThrow = me.Entity.extend({
 			spritewidth: "48",
 			spriteheight: "48",
 			getShape: function() {
-				return (new me.Rect(0, 0, 48 48)).toPolygon();
+				return (new me.Rect(0, 0, 48, 48)).toPolygon();
 			}
 		}]);
 		// to always move on screen
